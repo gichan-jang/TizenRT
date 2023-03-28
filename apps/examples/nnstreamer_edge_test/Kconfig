@@ -1,0 +1,17 @@
+#
+# For a description of the syntax of this configuration file,
+# see kconfig-language at https://www.kernel.org/doc/Documentation/kbuild/kconfig-language.txt
+#
+
+config EXAMPLES_NNS_EDGE_TEST
+	bool "NNStreamer-edge test program"
+	default n
+	depends on HAVE_CXXINITIALIZE
+	depends on nnstreamer-edge
+	depends on aitt
+	---help---
+		Enable the NNStreamer-edge Test program
+
+config USER_ENTRYPOINT
+	string
+	default "nns_edge_test_main" if ENTRY_NNS_EDGE_TEST
