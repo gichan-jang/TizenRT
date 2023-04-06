@@ -302,7 +302,6 @@ int nns_edge_test_main (int argc, char *argv[])
 	wifi_manager_deinit ();
 	wifi_signal_deinit ();
 	wifi_manager_init (&wifi_callbacks);
-	printf ("\n\n--------------------- wifi_manager_init Done.. ---------------------- \n");
 
   printf ("\n\n--------------------- Before Connect to WiFi AP.. ---------------------- \n");
   strcpy (apconfig.ssid, opt_data.ssid);
@@ -334,6 +333,7 @@ int nns_edge_test_main (int argc, char *argv[])
 	client_host = strdup (inet_ntoa(ip));
 	printf ("\n\n\n [[[[DEBUG]]]]] IP addr: %s \n\n", client_host);
   sleep(1);
+
   printf ("\n\n--------------------- Create edge handle.. ---------------------- \n");
 	ret = nns_edge_create_handle ("TEMP_ID", opt_data.conn_type,
         opt_data.node_type, &client_h);
@@ -341,7 +341,7 @@ int nns_edge_test_main (int argc, char *argv[])
 	  printf ("[DEBUG] Success to create edge handler\n");
 	else
 	  printf ("Failed to create edge handler\n");
-  sleep(1);
+
 	nns_edge_set_event_callback (client_h, _query_client_event_cb, NULL);
 
   printf("\n\n[DEBUG] port: %u, dest host: %s, dest port: %u, client_host: %s \n\n",
@@ -363,15 +363,13 @@ int nns_edge_test_main (int argc, char *argv[])
       nns_edge_set_info (client_h, "DEST_PORT", port);
     }
   }
-  sleep(1);
-  printf ("=============[Before start the nns edge]=================\n\n");
+
+  printf ("============= Before start the nns edge =================\n\n");
   ret = nns_edge_start (client_h);
   if (NNS_EDGE_ERROR_NONE != ret) {
     printf ("Failed to start query client.\n");
     goto done;
   }
-
-  sleep (1);
 
   if (NNS_EDGE_NODE_TYPE_QUERY_CLIENT == opt_data.node_type) {
     ret = nns_edge_connect (client_h, opt_data.dest_host, opt_data.dest_port);
@@ -388,9 +386,9 @@ int nns_edge_test_main (int argc, char *argv[])
   }
 
   received = 0;
-  for (i = 0; i < 50U; i++) {
+  for (i = 0; i < 600U; i++) {
     nns_edge_send (client_h, data_h);
-    usleep (100000);
+    usleep (16000);
   }
 
   ret = nns_edge_data_destroy (data_h);

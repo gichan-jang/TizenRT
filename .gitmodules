@@ -13,3 +13,7 @@
 [submodule "external/stdk/st-device-sdk-c"]
 	path = external/stdk/st-device-sdk-c
 	url = https://github.com/SmartThingsCommunity/st-device-sdk-c
+[submodule "external/nnstreamer-edge/nnstreamer-edge"]
+	path = external/nnstreamer-edge/nnstreamer-edge
+	url = https://github.com/nnstreamer/nnstreamer-edge.git
+	branch = main
